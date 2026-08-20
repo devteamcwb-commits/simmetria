@@ -16,11 +16,40 @@
     button { background:#000; color:#fff; border:none; padding:10px 20px; cursor:pointer; border-radius:4px; font-weight:bold; margin-top:15px; }
     .note { background:#fff8e1; border-left:4px solid #f0ad4e; padding:10px 12px; font-size:13px; margin:0 0 15px; line-height:1.5; }
     .ok { background:#e8f5e9; border-left:4px solid #4caf50; padding:10px 12px; font-size:13px; margin:0 0 15px; line-height:1.5; }
+    .tutorial { background:#eef4ff; border-left:4px solid #3b6fd6; padding:15px 18px; font-size:13px; line-height:1.6; margin:0 0 20px; border-radius:4px; }
+    .tutorial summary { cursor:pointer; font-weight:bold; font-size:14px; color:#1a1a1a; }
+    .tutorial ol { margin:10px 0 0; padding-left:20px; }
+    .tutorial ol + p { margin-top:12px; }
+    .tutorial h4 { margin:12px 0 4px; font-size:13px; }
 </style>
 </head>
 <body>
 <div class="container">
     <h2>Gerador de Assinaturas - Simmetria <small style="color:#999;">v6</small></h2>
+
+    <details class="tutorial">
+        <summary>Como colar a assinatura no Outlook (clique para abrir)</summary>
+
+        <h4>Outlook Desktop (aplicativo Windows/Mac)</h4>
+        <ol>
+            <li>Preencha nome, cargo e telefone acima e clique em <b>Copiar</b> na opcao desejada.</li>
+            <li>No Outlook, va em <b>Arquivo &gt; Opcoes &gt; E-mail &gt; Assinaturas</b> (em versoes mais novas: <b>Pagina Inicial &gt; Nova E-mail &gt; Assinatura &gt; Assinaturas</b>).</li>
+            <li>Clique em <b>Nova</b>, de um nome para a assinatura e clique em <b>OK</b>.</li>
+            <li>Clique dentro da caixa de edicao da assinatura e cole com <b>Ctrl+V</b>.</li>
+            <li>Em <b>Escolher assinatura padrao</b>, selecione essa assinatura para novas mensagens e/ou respostas. Clique em <b>OK</b> para salvar.</li>
+        </ol>
+
+        <h4>Outlook na Web (outlook.office.com)</h4>
+        <ol>
+            <li>Copie a assinatura desejada com o botao <b>Copiar</b>.</li>
+            <li>Clique na engrenagem <b>Configuracoes</b> (canto superior direito) &gt; <b>Ver todas as configuracoes do Outlook</b>.</li>
+            <li>Va em <b>E-mail &gt; Redigir e responder</b>.</li>
+            <li>Clique na caixa de texto da assinatura e cole com <b>Ctrl+V</b>. Ative as opcoes para incluir a assinatura em novas mensagens/respostas.</li>
+            <li>Clique em <b>Salvar</b>.</li>
+        </ol>
+
+        <p><b>Dica:</b> use a <b>Opcao 1 (Fonte Nativa)</b> se quiser a assinatura mais leve e sem risco de imagem bloqueada. Use a <b>Opcao 3 (Base64)</b> se quiser o logo exato — ela funciona bem ao colar direto no Outlook, pois a imagem fica embutida na propria assinatura.</p>
+    </details>
 
     <div class="form-group">
         <label>Nome:</label>
@@ -63,12 +92,12 @@
             <p class="note"><b>Atencao:</b> a URL atual do site serve o logo <b>branco</b>, que some no fundo branco do e-mail. Faca upload de <b>simmetria-logo-preta.png</b> (na pasta Downloads) na Midia do WordPress e cole a URL abaixo.</p>
             <div class="form-group">
                 <label>URL do logo preto:</label>
-                <input type="text" id="logo-url" value="https://simmetriaambienti.com.br/wp-content/uploads/2025/08/simmetria-logo-2.png" oninput="updateLogoUrl()">
+                <input type="text" id="logo-url" value="simmetria-logo-preta.png" oninput="updateLogoUrl()">
             </div>
             <div class="render"><div id="sig-2">
                 <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family: Arial, Helvetica, sans-serif;">
                     <tr>
-                        <td style="padding:26px 32px 0 0; vertical-align:top;"><img id="logo-2" src="https://simmetriaambienti.com.br/wp-content/uploads/2025/08/simmetria-logo-2.png" width="170" alt="SIMMETRIA" style="display:block; width:170px; border:0;"></td>
+                        <td style="padding:26px 32px 0 0; vertical-align:top;"><img id="logo-2" src="simmetria-logo-preta.png" width="170" alt="SIMMETRIA" style="display:block; width:170px; border:0;"></td>
                         <td style="border-left:1px solid #b0b0b0; font-size:0; line-height:0; width:1px;"><div style="width:1px; height:92px; font-size:0; line-height:0;">&nbsp;</div></td>
                         <td style="padding:0 0 0 32px; vertical-align:middle; font-family: Arial, Helvetica, sans-serif; font-size:13px; line-height:1.45; color:#1a1a1a;">
                             <div style="font-weight:bold; font-size:15px; color:#1a1a1a;"><span id="nome-2">Ketlyn</span></div>
@@ -121,6 +150,7 @@ function updateSignatures() {
 function updateLogoUrl() {
     document.getElementById('logo-2').src = document.getElementById('logo-url').value;
 }
+updateLogoUrl();
 async function copyElement(id) {
     var el = document.getElementById(id);
     try {
@@ -129,7 +159,7 @@ async function copyElement(id) {
             'text/html': blob,
             'text/plain': new Blob([el.innerText], { type: 'text/plain' })
         })]);
-        alert('Assinatura copiada! Cole em Gmail > Configuracoes > Assinatura.');
+        alert('Assinatura copiada! Cole (Ctrl+V) na caixa de assinatura do Outlook ou Gmail. Veja o tutorial no topo da pagina.');
     } catch (e) {
         var r = document.createRange();
         r.selectNode(el);
@@ -138,7 +168,7 @@ async function copyElement(id) {
         s.addRange(r);
         document.execCommand('copy');
         s.removeAllRanges();
-        alert('Assinatura copiada!');
+        alert('Assinatura copiada! Cole (Ctrl+V) na caixa de assinatura do Outlook ou Gmail.');
     }
 }
 </script>
