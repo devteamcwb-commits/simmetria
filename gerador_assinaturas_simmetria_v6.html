@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de Assinaturas - Simmetria v6</title>
+<style>
+    body { font-family: Arial, Helvetica, sans-serif; background:#f4f4f4; padding:30px; color:#333; }
+    .container { max-width:900px; margin:0 auto; background:#fff; padding:25px 30px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.1); }
+    .form-group { margin-bottom:15px; }
+    label { display:block; margin-bottom:4px; font-size:13px; font-weight:bold; }
+    input[type=text] { width:100%; padding:8px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px; }
+    .preview-area { margin-top:25px; border-top:2px solid #eee; padding-top:20px; }
+    .signature-option { margin-bottom:35px; padding:25px; border:1px solid #ddd; background:#fff; }
+    .signature-option h3 { margin:0 0 15px; font-size:15px; }
+    .render { padding:25px; border:1px dashed #e0e0e0; background:#fff; overflow-x:auto; }
+    button { background:#000; color:#fff; border:none; padding:10px 20px; cursor:pointer; border-radius:4px; font-weight:bold; margin-top:15px; }
+    .note { background:#fff8e1; border-left:4px solid #f0ad4e; padding:10px 12px; font-size:13px; margin:0 0 15px; line-height:1.5; }
+    .ok { background:#e8f5e9; border-left:4px solid #4caf50; padding:10px 12px; font-size:13px; margin:0 0 15px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Gerador de Assinaturas - Simmetria <small style="color:#999;">v6</small></h2>
+
+    <div class="form-group">
+        <label>Nome:</label>
+        <input type="text" id="nome" value="Ketlyn" oninput="updateSignatures()">
+    </div>
+    <div class="form-group">
+        <label>Cargo:</label>
+        <input type="text" id="cargo" value="Analista de Marketing" oninput="updateSignatures()">
+    </div>
+    <div class="form-group">
+        <label>Telefone:</label>
+        <input type="text" id="telefone" value="41 3332-4000" oninput="updateSignatures()">
+    </div>
+
+    <div class="preview-area">
+
+        <div class="signature-option">
+            <h3>1. Fonte Nativa (sem imagem)</h3>
+            <p class="ok"><b>Sempre funciona.</b> Nao depende de imagem, entao nunca e bloqueada. O logo e texto com espacamento entre letras &mdash; parecido, mas nao identico a fonte original da marca.</p>
+            <div class="render"><div id="sig-1">
+                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family: Arial, Helvetica, sans-serif;">
+                    <tr>
+                        <td style="padding:26px 32px 0 0; vertical-align:top;"><div style="font-family: Arial, Helvetica, sans-serif; font-size:25px; letter-spacing:4px; color:#1a1a1a; white-space:nowrap;">SIMMETRIA</div></td>
+                        <td style="border-left:1px solid #b0b0b0; font-size:0; line-height:0; width:1px;"><div style="width:1px; height:92px; font-size:0; line-height:0;">&nbsp;</div></td>
+                        <td style="padding:0 0 0 32px; vertical-align:middle; font-family: Arial, Helvetica, sans-serif; font-size:13px; line-height:1.45; color:#1a1a1a;">
+                            <div style="font-weight:bold; font-size:15px; color:#1a1a1a;"><span id="nome-1">Ketlyn</span></div>
+                            <div style="color:#8c8c8c; font-size:13px;"><span id="cargo-1">Analista de Marketing</span></div>
+                            <div style="height:11px; line-height:11px; font-size:0;">&nbsp;</div>
+                            <div style="color:#1a1a1a;"><span id="tel-1">41 3332-4000</span></div>
+                            <div style="font-weight:bold; color:#1a1a1a;">simmetriaambienti.com.br</div>
+                        </td>
+                    </tr>
+                </table>
+            </div></div>
+            <button onclick="copyElement('sig-1')">Copiar Opcao 1</button>
+        </div>
+
+        <div class="signature-option">
+            <h3>2. Logo Link Externo</h3>
+            <p class="note"><b>Atencao:</b> a URL atual do site serve o logo <b>branco</b>, que some no fundo branco do e-mail. Faca upload de <b>simmetria-logo-preta.png</b> (na pasta Downloads) na Midia do WordPress e cole a URL abaixo.</p>
+            <div class="form-group">
+                <label>URL do logo preto:</label>
+                <input type="text" id="logo-url" value="https://simmetriaambienti.com.br/wp-content/uploads/2025/08/simmetria-logo-2.png" oninput="updateLogoUrl()">
+            </div>
+            <div class="render"><div id="sig-2">
+                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family: Arial, Helvetica, sans-serif;">
+                    <tr>
+                        <td style="padding:26px 32px 0 0; vertical-align:top;"><img id="logo-2" src="https://simmetriaambienti.com.br/wp-content/uploads/2025/08/simmetria-logo-2.png" width="170" alt="SIMMETRIA" style="display:block; width:170px; border:0;"></td>
+                        <td style="border-left:1px solid #b0b0b0; font-size:0; line-height:0; width:1px;"><div style="width:1px; height:92px; font-size:0; line-height:0;">&nbsp;</div></td>
+                        <td style="padding:0 0 0 32px; vertical-align:middle; font-family: Arial, Helvetica, sans-serif; font-size:13px; line-height:1.45; color:#1a1a1a;">
+                            <div style="font-weight:bold; font-size:15px; color:#1a1a1a;"><span id="nome-2">Ketlyn</span></div>
+                            <div style="color:#8c8c8c; font-size:13px;"><span id="cargo-2">Analista de Marketing</span></div>
+                            <div style="height:11px; line-height:11px; font-size:0;">&nbsp;</div>
+                            <div style="color:#1a1a1a;"><span id="tel-2">41 3332-4000</span></div>
+                            <div style="font-weight:bold; color:#1a1a1a;">simmetriaambienti.com.br</div>
+                        </td>
+                    </tr>
+                </table>
+            </div></div>
+            <button onclick="copyElement('sig-2')">Copiar Opcao 2</button>
+        </div>
+
+        <div class="signature-option">
+            <h3>3. Logo Base64 (embutido)</h3>
+            <p class="note"><b>Use para colar direto na assinatura</b> do Gmail/Outlook. Alguns clientes bloqueiam imagens <code>data:</code> em e-mails <i>enviados</i> &mdash; se o destinatario reclamar que o logo nao aparece, use a Opcao 2.</p>
+            <div class="render"><div id="sig-3">
+                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family: Arial, Helvetica, sans-serif;">
+                    <tr>
+                        <td style="padding:26px 32px 0 0; vertical-align:top;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAW4AAAAoCAYAAADe1BBKAAAJMElEQVR42u2d/3XbOAzH4Q2UDZQN3A2cCc5d4GxPEHcCa4LGE9SeoNkg2qDewNog2qA56z3pzvUBMn8AJKiQ7/GfNpYogvzwSxAkAczT4pKfL/lwyadLbi754yY3/f+9XnJ1yctLLoEvFf1zr/PC8hldmdY3uYC00hqpB5t6LpE6KBOrg5KhLVB1KZm3ispiU7bbPuT7rqHddTabC7QPjBXLgO3z8ZLrS277/D1k5+g+fte/+MMjdx+wYoBDiTy7snxGjTzjNTFgYXW8sITV7e/bhOA9I4RDZfmMo2e7dsnnkfLUEcpjUrbrMr4Ivp+LEwM4b5//I3L7/J4KsLF88DCMFLg/LNRG7NQIgXvoOClAm4KHTVt4UAbHVMAdqiwHT4DHBPeG+KbfjrNCYzieAhhm5+CikAR3CopzN1KfHOBOYQD7OlL2yrNjZ3DrAfcAul1i4J6NiKsuv0lBuxkBW937uecI5Ir+3xd9BzJphI2lf0sS3NoV5/JOXXKBW/MA9ninU/iC+xTZj7ztlaZtbhEbujznuwO4G8d3Hfr+dhKCdyxwbwy+h7V/FUSnaPsGVzg+cz0Cy0aR4nZ9Xii/dhMI3APANLpIjoy2izmVllZ4Z8F3SSnIxYh9XeAdw76YLVrpcuwIsJaM8Dl6KrsQ4LaFYIh0ZC7z2uB5L8rqYGtQ5gzudMF9b1Zl6x+OYd8N0SZrKdWNqW1OaN9Co3v2yhH+IcDdgJ4QwWdDfyA3uDUNYI9gtlCewZ0+uIf3vHq+K7R9MTu898x6khJGmP90JfiRrlCUAHdDwFyD4iwJYNUC4N4rHcCoxZ59Bvdkwd2lB+S7bFR3aPtuRt6HLTy/c/StCnnpXGEjlQI3Bchl5O+lgLUWAHcJOmPcsbZ5BjycL4N7OuDu0jcPG4e074wYZK49Fk8gsJ52RB6qcTehFLipWUfMCAtqzQEEwU0NYLFCBL8AvSo/y+CePLgfPIRESPs+GbxLRHXviY78mcBN1UOMEME54D7cUhjc0D9HwwD2AOO7IzO4pw/uGSIk3pTZFwMytfi44VbdW0gnLE4S3FRI5DbwN94rgyS4qQHsLTCMjnc6Xgb35wB3oxzcTxbvoRYwnVX3glB42vzc0uAe1C62oSFUXWDAOhiAlxPcXUM6ISoi1ACGKZPzTRkzuD8HuF3fF8K+NmpbTHXXxBRZ0xboEOCmZiAnkPf7Y0DFwjKlwT3UdYs0SukBDIvjxaIJMrinD25sjeNFkX1d3oG5f0RU9wCPlYJGGgrc1ED2IvxtjSGQQ4CbGsDOggMYdV5HZQiRDO7pgBtzl3UD+F9K7EuVrzT4bcWtuisY3+DQjRSvwHf0omZwFxYg5Ui1xbeFAjcAvhFC6njKCuwOZcrgni64H8H+EKyQ9vV5/gO36jaB9637oOvYzz04pF0JIcFNzUIkNqWMhf7FBndBuC6WATrq+0i5JMD9E/4Li+TOGdx+7jJNA7OP2hZT3WPTdhuYd6qc2x8aGtxdwiIsXoW/6d5xAyHBTQ1g74xAojYwrCwh4tuxJY8nXQjCdErg/gr4XgLbb5IE9yMDEyjVzZKW4H9G8HDs40IIctLgBsCPnuRYtKXcMSsH8EqCm1IIb0wwwC5GeHGASAZ3muAu+lk7xZqzg0iQAjeltl3sW1mKFSdgrpkgvvIsRwxwl4CHCPoqTgxYe0fwSoObCn3yHcC+gtsCaAa3DnC7nv196FXqvZn9L8d+JgXuR8bBC1PdUrb7d+r83Ff8yRHgZULgBsAjLHx2Va7B3X8eA9xDo20ZXSZU6F/pCBFfcLd9ebjzecLglsqtp89XAtycajuY6r431bmGual/fJsQuAFwf7dLiGBJ1FHpAd4Q4KYU8i+wX7CldkdWHhCpInfsGGlq4G7A/eIWafv6RrqYqu63mA1q3oP8niJfWQIvJri5QgSPnt8RE9wzYgCzDRHEZjA/PSGSwZ0muJu+TZaMZeW2L6W2OdRxFdC1Zg3xI/jfcRgb3MO3+IQIYhcj2K5IxwT3oBJ8z0rGfHulJ0QyuMOD+9S3J9NcAb4GwO0e4LYv1WY5Eqa6Vd1/uwY81Gdv+HsN4KbU4otj+V38/bHB3aUvREMuHEDjEheewa0D3C7TegzenOGlEvatiL5bM+VWq+oeEnXudUrgxp5jcvEC105MDeDu0jcHd0cFPBsPMrjTBTd1tAHncQqc9qU2BEnnWltjqx3BoQncJdiFCO6Ab6cUN7hdLy+1DRHkXNzJ4E4X3JS7jXNhjtO+3yJAW6XqrhzBowncAPiOwtrw73zeqwXcVAfEpr2mf5fB/TnAPdgAcxHsFIF7xqS2fxtm1arbFTzawN0lLMJie1PmBng372gCd5ee7nRoiRX5DO70wd2lDcgsVnLZd0PMKEuhXNuq7hLCnfiHwc7Et6UR3NilA9cXLxzBLwRSAtwbZnBjIYLXLpMNyGyGyOBOH9xUeKnvYiWHfUPWre0s/g9V2ATyqTSO8NQI7qFcLfJcLPTvEHHGIgXuoZGfCOWENf5CACIZ3GmeVSKxWMlh3w2E39U4M1Xd2KaSg6D63nnATCu4AfAQQakjYTWCm/JZfgi9K4N7OuDuEvdipa99qXoN4ZXAVPf/9nq8jkBmx1xQ7FCl1DbgjKUjjJ+9wFWXWsFNuUUkLqHO4J4WuLv0hRj4XS7u8LXvRrDtuqruP/roHMZXTTmOZV0AvfXd5rwS7eAGwl/XMrugNIMbgL6MoxKGSAZ3+udxcy1W+tg3ptoeU90HzF2yN5zqX994M0em/kX/7+v+mS2j+koB3EOlV31+Bv4bc7SDe7DV+qoOygAQ8QX36cpukrlgrocpgXtssXLuad8fjv0jxqBOqe6C6my+Z26b5q0jDFIAt3RKAdwhGnYq53FL1vUUry7jWKx0BTd1JEOM/rGwbePdD44gt43T9UqzDO4Mbi5wP2RwqwX3AF6fxUpXcGtQ22MDmNGlwsN011eFD7fDLzw/JIM7g5sL3LOAs8sMbrfks1jpAu7bNvFbQd9YgOfO0uGyhKqHcN03GCx+efCF74H39vcC8RcuHKB3/fstpJfmSD2Unr8vEqwH37bQpSWE8WtL1vU2YJu+/RbpuOalYx1irLh3CFx58/cdIP9W1s67Mj3/Ax/jP6hz1o/qAAAAAElFTkSuQmCC" width="170" alt="SIMMETRIA" style="display:block; width:170px; border:0;"></td>
+                        <td style="border-left:1px solid #b0b0b0; font-size:0; line-height:0; width:1px;"><div style="width:1px; height:92px; font-size:0; line-height:0;">&nbsp;</div></td>
+                        <td style="padding:0 0 0 32px; vertical-align:middle; font-family: Arial, Helvetica, sans-serif; font-size:13px; line-height:1.45; color:#1a1a1a;">
+                            <div style="font-weight:bold; font-size:15px; color:#1a1a1a;"><span id="nome-3">Ketlyn</span></div>
+                            <div style="color:#8c8c8c; font-size:13px;"><span id="cargo-3">Analista de Marketing</span></div>
+                            <div style="height:11px; line-height:11px; font-size:0;">&nbsp;</div>
+                            <div style="color:#1a1a1a;"><span id="tel-3">41 3332-4000</span></div>
+                            <div style="font-weight:bold; color:#1a1a1a;">simmetriaambienti.com.br</div>
+                        </td>
+                    </tr>
+                </table>
+            </div></div>
+            <button onclick="copyElement('sig-3')">Copiar Opcao 3</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function updateSignatures() {
+    var n = document.getElementById('nome').value;
+    var c = document.getElementById('cargo').value;
+    var t = document.getElementById('telefone').value;
+    for (var i = 1; i <= 3; i++) {
+        document.getElementById('nome-' + i).textContent = n;
+        document.getElementById('cargo-' + i).textContent = c;
+        document.getElementById('tel-' + i).textContent = t;
+    }
+}
+function updateLogoUrl() {
+    document.getElementById('logo-2').src = document.getElementById('logo-url').value;
+}
+async function copyElement(id) {
+    var el = document.getElementById(id);
+    try {
+        var blob = new Blob([el.innerHTML], { type: 'text/html' });
+        await navigator.clipboard.write([new ClipboardItem({
+            'text/html': blob,
+            'text/plain': new Blob([el.innerText], { type: 'text/plain' })
+        })]);
+        alert('Assinatura copiada! Cole em Gmail > Configuracoes > Assinatura.');
+    } catch (e) {
+        var r = document.createRange();
+        r.selectNode(el);
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+        document.execCommand('copy');
+        s.removeAllRanges();
+        alert('Assinatura copiada!');
+    }
+}
+</script>
+</body>
+</html>
